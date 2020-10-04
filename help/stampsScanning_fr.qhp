@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>stampsScanning</namespace>
+    <virtualFolder>help</virtualFolder>
+    <filterSection>
+        <toc>
+            <section title="Aide stampsScanning" ref="help_fr.html">
+                <section title="Aide" ref="./help_fr.html"></section>
+            </section>
+        </toc>
+         <files>
+            <file>help_fr.html</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

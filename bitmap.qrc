@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/open.png</file>
+        <file>icons/right-32.png</file>
+        <file>icons/rotateright.png</file>
+        <file>icons/save.png</file>
+        <file>icons/square.png</file>
+        <file>icons/stop-32.png</file>
+        <file>icons/topbar_button_close.png</file>
+        <file>icons/icon_app.png</file>
+        <file>icons/calibration.png</file>
+    </qresource>
+</RCC>

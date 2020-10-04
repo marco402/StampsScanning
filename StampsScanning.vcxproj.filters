@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Distribution Files">
+      <UniqueIdentifier>{B83CAF91-C7BF-462F-B76C-EA11631F866C}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Distribution Files">
+      <UniqueIdentifier>{B83CAF91-C7BF-462F-B76C-EA11631F866C}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Header Files\presentation">
+      <UniqueIdentifier>{9514ed41-fea7-440b-b6e4-ea3fee8fce15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\process">
+      <UniqueIdentifier>{565bebc4-6f40-4f5d-b824-960574aaf283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\presentation">
+      <UniqueIdentifier>{a046a266-b152-408d-971c-cc7156edf277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\process">
+      <UniqueIdentifier>{9d8e957f-4b03-43f0-b52d-72263791a02e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="help">
+      <UniqueIdentifier>{7db9b6fe-c70b-40e5-8107-c493660b15b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\class_functions_windows.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_generiques_fonctions.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_geometrie.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_one_stamp_generales_functions.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_perforation.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_sep_stamps_find_borders.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_sep_stamps_generales_functions.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_sep_stamps_thread.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\form_main.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\form_stamp.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\partial_form_main_command.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\partial_form_main_resizeform.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="process\partial_form_main_manage_separate_stamps_thread.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\partial_form_main_setting.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\partial_form_main_translate.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="process\class_scan_border.cpp">
+      <Filter>Source Files\process</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\helpBrowser.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\form_help.cpp">
+      <Filter>Source Files\presentation</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constantes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\class_functions_windows.h">
+      <Filter>Header Files\presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="process\class_generiques_fonctions.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\class_geometrie.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\class_one_stamp_generales_functions.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\class_perforation.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\class_sep_stamps_find_borders.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <QtMoc Include="presentation\form_main.h">
+      <Filter>Header Files\presentation</Filter>
+    </QtMoc>
+    <QtMoc Include="presentation\form_stamp.h">
+      <Filter>Header Files\presentation</Filter>
+    </QtMoc>
+    <QtMoc Include="presentation\form_help.h">
+      <Filter>Header Files\presentation</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="languages\stampscanning_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="languages\stampscanning_fr.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="bitmap.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="icons\calibration.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\icon_app.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\open.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\right-32.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\rotateright.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\save.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\square.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\stop-32.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icons\topbar_button_close.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="languages\en.png">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="languages\fr.png">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="languages\stampscanning_en.qm">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="languages\stampscanning_en.ts">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="languages\stampscanning_fr.qm">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="languages\stampscanning_fr.ts">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="todo">
+      <Filter>Distribution Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="process\class_sep_stamps_generales_functions.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <ClInclude Include="process\class_scan_border.h">
+      <Filter>Header Files\process</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\helpBrowser.h">
+      <Filter>Header Files\presentation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="process\class_sep_stamps_thread.h">
+      <Filter>Header Files\process</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>
