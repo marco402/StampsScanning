@@ -66,7 +66,7 @@ signals:
 private:
     void loadWidgets();
     //****setting************
-    void loadSettings(void);
+    bool loadSettings(void);
     void saveSettings(void);
     void resizePicture();
     bool loadFile(const QFileInfo &fileName);
@@ -79,6 +79,7 @@ private:
     QList<corners> getListStampWithDetection(struct oneMatrix *theMatrix,QImage image);
 private:
     QString m_sSettingsFile;
+    QString VERSION="V 1.0.1";
     //***********************
     QImage *image = nullptr;
     QLabel  *labelPicture = nullptr;

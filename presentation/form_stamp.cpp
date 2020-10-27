@@ -31,8 +31,15 @@
 
 #include "form_stamp.h"
 
-formStamp::formStamp()
-{}
+formStamp::formStamp(structFormStamp frm)
+{
+    memmove ( nbPerforation, frm.nbTeeth, 4*sizeof(double) ) ;
+    setWindowTitle(frm.title + QString::number(frm.index));
+    move(frm.left,frm.top);
+    loadWidgets(frm);
+    initResize();
+    //displayPath();
+}
 formStamp::formStamp(structFormStamp frm,QString * currentPathSave,double * ratioPerforation)
 {
     this->currentPathSave=currentPathSave;
@@ -79,10 +86,14 @@ void formStamp::loadWidgets(structFormStamp frm)
     editYearStamp->setToolTip(tr("Year if you want it.") );
     cbNbPerforations = new QComboBox;
     cbNbPerforations->setEditable(false);
+    average=(frm.nbTeeth[static_cast<int>(sideStamp::NORTH)]+frm.nbTeeth[static_cast<int>(sideStamp::SOUTH)]+frm.nbTeeth[static_cast<int>(sideStamp::EAST)]+frm.nbTeeth[static_cast<int>(sideStamp::WEST)])/4;
+    cbNbPerforations->addItem(QString::number(average));
+
     cbNbPerforations->addItem(tr("North:  ")+QString::number(frm.nbTeeth[static_cast<int>(sideStamp::NORTH)],'f',1));
     cbNbPerforations->addItem(tr("South:   ")+QString::number(frm.nbTeeth[static_cast<int>(sideStamp::SOUTH)],'f',1));
     cbNbPerforations->addItem(tr("East:   ")+QString::number(frm.nbTeeth[static_cast<int>(sideStamp::EAST)],'f',1));
     cbNbPerforations->addItem(tr("West: ")+QString::number(frm.nbTeeth[static_cast<int>(sideStamp::WEST)],'f',1));
+
      saveAct = new QAction(QIcon(":/icons/save.png") , tr("&Save..."), this);
      changePathAct= new QAction(QIcon(":/icons/open.png") , tr("&Change path to save..."), this);
      rotateAct = new QAction(QIcon(":/icons/rotateright.png") , tr("&Rotate..."), this);
@@ -129,6 +140,7 @@ void formStamp::rotate()
     nbPerforation[static_cast<int>(sideStamp::SOUTH)]=nbPerforation[static_cast<int>(sideStamp::EAST)];
     nbPerforation[static_cast<int>(sideStamp::EAST)]=temp;
     cbNbPerforations->clear();
+    cbNbPerforations->addItem(QString::number(average));
     cbNbPerforations->addItem(tr("North:  ") + QString::number(nbPerforation[static_cast<int>(sideStamp::NORTH)],'f',1));
     cbNbPerforations->addItem(tr("South:   ") +  QString::number(nbPerforation[static_cast<int>(sideStamp::SOUTH)],'f',1));
     cbNbPerforations->addItem(tr("East:   ") +  QString::number(nbPerforation[static_cast<int>(sideStamp::EAST)],'f',1));
@@ -174,8 +186,10 @@ void formStamp::displayPath()
 
 void formStamp::save()
 {
-    QMessageBox msgBox;
 
+if (*currentPathSave=="")
+        changePath();
+    QMessageBox msgBox;
     if (editRefStamp->text().isEmpty())
     {
         msgBox.setText(tr("Type a reference for this stamp."));
@@ -185,13 +199,6 @@ void formStamp::save()
     }
     QString imagePath =*currentPathSave+"/"+ editRefStamp->text();
 
-//    if (editNamePictureFile->text().isEmpty())
-//    {
-//        msgBox.setText(tr("Type a name for this stamp."));
-//        msgBox.setDefaultButton(QMessageBox::Cancel);
-//        msgBox.exec();
-//        return;
-//    }
     if (!editNamePictureFile->text().isEmpty())
         imagePath+=("_" + editNamePictureFile->text() );
 

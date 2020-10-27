@@ -106,14 +106,14 @@ double class_perforation::processPerforation(sideStamp H, struct oneMatrix *theM
          }
     }
 #ifdef DEBUGDISPLAYIMAGE
-// listPtDebug+=listStartPix;// for debug all pts
+// listPtDebug+=listStartPix;// for display all pts
 #endif
     return teeth;
 }
 #ifdef DEBUGDISPLAYIMAGE
-double class_perforation::perforationAtX(QList<QPointF> listStartPix,QImage fullStampRectified,int resolution,QList<QPointF> &listPtDebug ,double ratioPerforation)
+    double class_perforation::perforationAtX(QList<QPointF> listStartPix,QImage fullStampRectified,int resolution,QList<QPointF> &listPtDebug ,double ratioPerforation)
 #else
-double class_perforation::perforationAtX(QList<QPointF> listStartPix,QImage fullStampRectified,int resolution ,double ratioPerforation)
+    double class_perforation::perforationAtX(QList<QPointF> listStartPix,QImage fullStampRectified,int resolution ,double ratioPerforation)
 #endif
 {
     //counts the number of each deviation
@@ -190,30 +190,42 @@ QList<QPointF> class_perforation::getNbPtForEachPt(QList<QPointF> listStartPix,Q
 double class_perforation::calcPerfo(QVector<double> newListClean,double nPixels)
 {
     double sumPt=0;
-     double sumResult=0;
-     int nb=0;
-      for (int i = 0 ;i< newListClean.count();i++)
-     {
-          int j =0;
-          for ( j = i ;j< newListClean.count() ;j++)
-          {
-              sumPt+=newListClean.at(j);
-              if(sumPt>nPixels)
-              {
-                 double delta=((nPixels-(sumPt-newListClean.at(j)))/(newListClean.at(j)));
-                 sumResult+= (j-i)+delta;
-                 nb+=1;
-                 sumPt=0;
-                 break;
-              }
-          }
-          if (j >=newListClean.count())
-              break;
-     }
-      if (nb>0)
-          return sumResult/nb;
+    for (int i = 0 ;i< newListClean.count();i++)
+    {
+      sumPt+=newListClean.at(i);
+    }
+    double average=sumPt/newListClean.count();
+    if(average>0)
+        return nPixels/average;
+    return 0.0;
 
-      return 0.0;
+
+     //    double sumResult=0;
+     //    int nb=0;
+//0 if not enough point: stamp exampl.bmp
+
+//      for (int i = 0 ;i< newListClean.count();i++)
+//     {
+//          int j =0;
+//          for ( j = i ;j< newListClean.count() ;j++)
+//          {
+//              sumPt+=newListClean.at(j);
+//              if(sumPt>nPixels)
+//              {
+//                 double delta=((nPixels-(sumPt-newListClean.at(j)))/(newListClean.at(j)));
+//                 sumResult+= (j-i)+delta;
+//                 nb+=1;
+//                 sumPt=0;
+//                 break;
+//              }
+//          }
+//          if (j >=newListClean.count())
+//              break;
+//     }
+//      if (nb>0)
+//          return sumResult/nb;
+
+//      return 0.0;
 }
 QList<QPointF> class_perforation::getBasePerforation(QList<QPointF> listStartSortNoDouble,double test)
 {

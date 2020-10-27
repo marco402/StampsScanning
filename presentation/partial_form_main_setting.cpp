@@ -18,9 +18,10 @@
 #include <QSettings>
 #include <QFile>
 #include "form_main.h"
-void formMain::loadSettings()
+bool formMain::loadSettings()
 {
     m_sSettingsFile = "stampsScanning.ini";
+    bool ret=QFileInfo(m_sSettingsFile).exists();
     QSettings settings(m_sSettingsFile, QSettings::IniFormat);
     settings.beginGroup("ParamIde");
     border=settings.value("border", "5").toInt();
@@ -35,6 +36,7 @@ void formMain::loadSettings()
 	displayDebugContour =settings.value("displayDebugContour", false).toBool();
 	calibrationThreshold =settings.value("calibrationThreshold", false).toBool();
     settings.endGroup();
+    return ret;
 }
 void formMain::saveSettings()
 {

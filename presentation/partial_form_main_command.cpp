@@ -73,7 +73,7 @@ bool formMain::loadFile(const QFileInfo &fileName)
     else
     {
         QMessageBox msgBox;
-        msgBox.setText(tr("do not found file."));
+        msgBox.setText(tr("do not found file.") + " : " + fileName.filePath());
         msgBox.setDefaultButton(QMessageBox::Cancel);
         msgBox.exec();
         return false;
@@ -100,7 +100,7 @@ void formMain::traiteSliderCalibration()
 	theMatrix.pix = reinterpret_cast<bool**>(malloc(static_cast<unsigned long long>(nbColumn) * sizeof(theMatrix.pix)));
 	for (int column = 0; column < nbColumn; column++)
 		theMatrix.pix[column] = reinterpret_cast<bool*>(malloc(static_cast<unsigned long long>(nbLine) * sizeof(theMatrix.pix)));
-	classGeneriquesFonctions::bitMapToBinary(&theMatrix, *image, threshold);
+    classGeneriquesFonctions::bitMapToBinary(&theMatrix, image, threshold);
 	QImage  newImage(nbColumn - 1, nbLine - 1, QImage::Format_ARGB32);
 	QPainter painter(&newImage);
 	QRectF target(0.0, 0.0, nbColumn - 1, nbLine - 1);

@@ -33,11 +33,12 @@ public:
     static bool pt1xLessPt2x(const QPointF &pt1, const QPointF &pt2);
     static bool floatCompare(double f1, double f2);
     static bool pt1YComparePt2Y(const QPointF &pt1, const QPointF &pt2);
-    static void bitMapToBinary(struct oneMatrix *theMatrix,QImage image, int treshold);
+    static void bitMapToBinary(struct oneMatrix *theMatrix,QImage *image, int treshold,QImage *debugImage=nullptr);
     static QList<QPointF> averageEqualY(QList<QPointF> StartSortNoDouble);
     static QColor getBackColor(QImage image);
 private:
     static void processColor(QImage startBitmap,int &a,int &r,int &g,int &b,int x,int y);
+    static void cleanMatrix(struct oneMatrix *theMatrix,QImage *image,bool flagDebug);
 };
 
 #endif // CLASSGENERIQUESFONCTIONS_H

@@ -17,12 +17,12 @@
 // **********************************************************************************
 #ifndef CONSTANTES_H
 #define CONSTANTES_H
-
 #ifdef __DEBUG__  //put or delete NO_
-	#define NO_DEBUGDISPLAYCONTOURIMAGE
-	#define NO_DEBUGDISPLAYIMAGE					//this option need modified code...
+    #define NO_DEBUGDISPLAYCONTOURIMAGE
+    #define NO_DEBUGDISPLAYIMAGE					//this option need modified code...
 	#define NO_LOADWHENSTART
-	#define DEBUGTOOLTIP
+    #define NO_DEBUGTOOLTIP
+    #define NO_DEBUGCLEAN
 #endif
 #define CALIBRATIONTHRESHOLD     //see setting true or false for display
 

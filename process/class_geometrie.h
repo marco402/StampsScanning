@@ -26,9 +26,9 @@ class classGeometrie
 public:
     static double getRotateAngleRad(corners listeSideStampAtAxesLevel);
     static bool getLineAveragePoints(QList<QPointF> data , double &Ai, double &Bi);
-    static corners getCrossLines(double tabAi[],double tabBi[]);
-    static QPointF getCross2Lines(double Ai1,double Bi1,double Ai2,double Bi2);
-    static corners processAngles( QList<QList<QPointF>> theData, int &indicOK ,double ai[] ,double bi[]);
+    static corners getCrossLines(double tabAi[],double tabBi[], bool &indicOK);
+    static QPointF getCross2Lines(double Ai1,double Bi1,double Ai2,double Bi2, bool &indicOK);
+    static corners processAngles( QList<QList<QPointF>> theData, bool &indicOK ,double ai[] ,double bi[]);
     static bool isInside(QPointF pt[],QPointF ref);
     static QImage rotateBitmap(QImage &bm_in,double angleRad,corners stampCorners,QColor backColor);
 

@@ -29,7 +29,7 @@
 class formStamp : public QMainWindow {
     Q_OBJECT
 public:
-    formStamp();
+    formStamp(structFormStamp frm);
     formStamp(structFormStamp frm,QString * currentPathSave,double * ratioPerforation);   //
     void retranslateUi();
 public:
@@ -70,4 +70,5 @@ private:
     int cor=0;
     QString *currentPathSave = nullptr;
     double *ratioPerforation = nullptr;
+    double average=0.0;
 };

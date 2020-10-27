@@ -12,6 +12,8 @@ release/*
 presentation/*.autosave
 process/*.autosave
 *.ini
+*.log
+
 
 
 

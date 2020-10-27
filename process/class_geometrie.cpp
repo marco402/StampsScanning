@@ -109,31 +109,48 @@ bool classGeometrie::getLineAveragePoints(QList<QPointF> data , double &Ai, doub
         Bi = averageDebut_Y - (Ai * averageDebut_X);
     return true;
 }
-corners classGeometrie::getCrossLines(double tabAi[],double tabBi[])
+corners classGeometrie::getCrossLines(double tabAi[],double tabBi[], bool &indicOK)
 {
     corners theAngles;
     theAngles.NORTH_EAST = getCross2Lines(tabAi[static_cast<int>(sideStamp::NORTH)], tabBi[static_cast<int>(sideStamp::NORTH)],
-		tabAi[static_cast<int>(sideStamp::EAST)], tabBi[static_cast<int>(sideStamp::EAST)]);
+		tabAi[static_cast<int>(sideStamp::EAST)], tabBi[static_cast<int>(sideStamp::EAST)], indicOK);
     theAngles.NORTH_WEST = getCross2Lines(tabAi[static_cast<int>(sideStamp::NORTH)], tabBi[static_cast<int>(sideStamp::NORTH)],
-		tabAi[static_cast<int>(sideStamp::WEST)], tabBi[static_cast<int>(sideStamp::WEST)]);
+		tabAi[static_cast<int>(sideStamp::WEST)], tabBi[static_cast<int>(sideStamp::WEST)], indicOK);
     theAngles.SOUTH_EAST = getCross2Lines(tabAi[static_cast<int>(sideStamp::SOUTH)], tabBi[static_cast<int>(sideStamp::SOUTH)],
-		tabAi[static_cast<int>(sideStamp::EAST)], tabBi[static_cast<int>(sideStamp::EAST)]);
+		tabAi[static_cast<int>(sideStamp::EAST)], tabBi[static_cast<int>(sideStamp::EAST)], indicOK);
     theAngles.SOUTH_WEST = getCross2Lines(tabAi[static_cast<int>(sideStamp::SOUTH)], tabBi[static_cast<int>(sideStamp::SOUTH)],
-		tabAi[static_cast<int>(sideStamp::WEST)], tabBi[static_cast<int>(sideStamp::WEST)]);
+		tabAi[static_cast<int>(sideStamp::WEST)], tabBi[static_cast<int>(sideStamp::WEST)], indicOK);
     return theAngles;
 }
-QPointF classGeometrie::getCross2Lines(double Ai1,double Bi1,double Ai2,double Bi2)
+QPointF classGeometrie::getCross2Lines(double Ai1,double Bi1,double Ai2,double Bi2, bool &indicOK)
 {
     QPointF thePt;
-    if (qAbs(Ai1 - Ai2) < 1) return thePt; //Parallel lines
-    if (std::isinf((Ai1))) //1 parallel to axis y
+	if (Ai1 == Ai2)
+	{
+		indicOK = false;
+        //qDebug("Parallel lines");
+    }
+    else if (std::isinf((Ai1)))
+	{
         thePt = QPointF(Bi1, (Ai2 * Bi1) + Bi2);
-    else if (std::isinf((Ai2)))    //2 parallel to axis y
+		//qDebug("1 parallel to axis y");
+    }
+    else if (std::isinf((Ai2)))
+	{
         thePt =QPointF (Bi2,Ai1 * Bi2 + Bi1);
+		//qDebug("2 parallel to axis y");
+	}
     else
     {
         double x=qMax(0.0, (Bi2 - Bi1) / (Ai1 - Ai2));
         thePt =QPointF (x,(qMax(0.0, (Ai1 * x) + Bi1)));
+		if (thePt.x()==0.0)
+		{
+			//qDebug("thePt.x==0.0");
+			//qDebug("x=%f", (Bi2 - Bi1) / (Ai1 - Ai2));
+			//qDebug("y=%f", (Ai1 * x) + Bi1);
+			indicOK = false;
+        }
     }
     return thePt;
 }
@@ -159,7 +176,7 @@ QImage classGeometrie::rotateBitmap(QImage &bm_in,double angleRad,corners stampC
     else
         return fullStampRectified;
 }
-corners classGeometrie::processAngles( QList<QList<QPointF>> theData, int &indicOK ,double aiDebug[] ,double biDebug[])
+corners classGeometrie::processAngles( QList<QList<QPointF>> theData, bool &indicOK ,double aiDebug[] ,double biDebug[])
 {
 	QList<QPointF> listCleanN = classGeneriquesFonctions::rejectAberrantsPoints(theData[static_cast<int>(sideStamp::NORTH)], oppositeSide::NORTHSOUTH);
     getLineAveragePoints( listCleanN, aiDebug[static_cast<int>(sideStamp::NORTH)], biDebug[static_cast<int>(sideStamp::NORTH)]);
@@ -173,7 +190,7 @@ corners classGeometrie::processAngles( QList<QList<QPointF>> theData, int &indic
         if (!std::isinf(aiDebug[i]) || !std::isnan(aiDebug[i]))
             indicOK += 1;
     }
-    return getCrossLines(aiDebug, biDebug);
+    return getCrossLines(aiDebug, biDebug, indicOK);
 }
 bool classGeometrie::isInside(QPointF pt[],QPointF ref)
 {

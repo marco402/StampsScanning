@@ -22,22 +22,95 @@
 #include "class_geometrie.h"
 #include "constantes.h"
 #include "class_QPoinF.h"
-
-void classGeneriquesFonctions::bitMapToBinary(struct oneMatrix *theMatrix,QImage image, int treshold)
+#include <QPainter>
+#include "../presentation/form_stamp.h"
+void classGeneriquesFonctions::bitMapToBinary(struct oneMatrix *theMatrix,QImage *image, int treshold,QImage *ptrDebugImage)
  {
-    int nbLine=image.height();
-    int nbColumn=image.width();
+    int nbLine=image->height();
+    int nbColumn=image->width();
 	for (int line=0;line<nbLine;line++)
     {
         for (int column=0;column<nbColumn;column++)
         {
-            if (qMax(qMax(qRed(image.pixel(column,line)), qGreen(image.pixel(column,line))), qBlue(image.pixel(column,line))) > treshold)
+            if (qMax(qMax(qRed(image->pixel(column,line)), qGreen(image->pixel(column,line))), qBlue(image->pixel(column,line))) > treshold)
                 theMatrix->pix[column][line]= true;
 			else
 				theMatrix->pix[column][line] = false;
         }
      }
- }
+    if(ptrDebugImage)
+        cleanMatrix(theMatrix,ptrDebugImage,true);
+    else
+        cleanMatrix(theMatrix,image,false);
+}
+void classGeneriquesFonctions::cleanMatrix(struct oneMatrix *theMatrix,QImage *image,bool flagDebug)
+{
+	const int NBPIX = 1;
+	const int SEUILNBPIX = (NBPIX *8)-(NBPIX);
+    int nbLine=image->height();
+    int nbColumn=image->width();
+
+#ifdef DEBUGCLEAN
+    QPainter painter(image);
+    if(flagDebug)
+    {
+    QRectF target(0.0, 0.0, nbColumn - 1, nbLine - 1);
+    painter.fillRect(target, Qt::white);
+    painter.setPen(Qt::red);
+    }
+#endif
+    for (int line=0;line<nbLine;line++)
+    {
+        for (int column=0;column<nbColumn;column++)
+        {
+            int nbBlack=0;
+            if (theMatrix->pix[column][line]==true)  //light point: verify if around is also light
+            {
+                 int debutX=column- NBPIX;
+                 int debutY=line- NBPIX;
+                 int finX=column+ NBPIX;
+                 int finY=line+ NBPIX;
+                 if (debutX<0) debutX=0;
+                 if (debutY<0) debutY=0;
+                 if (finX>nbColumn-1) finX=nbColumn-1;
+                 if (finY>nbLine-1) finY=nbLine-1;
+//test a square around spot
+
+                 for (int C=debutX;C<finX;C++)
+                 {
+                    if (theMatrix->pix[C][debutY]==false)
+                            nbBlack+=1;
+                 }
+                 for (int C=debutX;C<finX;C++)
+                 {
+                    if (theMatrix->pix[C][finY]==false)
+                            nbBlack+=1;
+                 }
+                 for (int L=debutY;L<finY;L++)
+                 {
+                     if (theMatrix->pix[debutX][L]==false)
+                             nbBlack+=1;
+                 }
+                 for (int L=debutY;L<finY;L++)
+                 {
+                     if (theMatrix->pix[finX][L]==false)
+                             nbBlack+=1;
+                 }
+            }
+            if (nbBlack> SEUILNBPIX)
+            {
+                theMatrix->pix[column][line]=false;
+#ifdef DEBUGCLEAN
+                if(flagDebug)
+                {
+                painter.drawPoint(column,line);
+                }
+#endif
+            }
+        }
+     }
+}
+
 corners classGeneriquesFonctions::addFrame(corners fourCorner,int width)
 {
 	corners unAngleOut;

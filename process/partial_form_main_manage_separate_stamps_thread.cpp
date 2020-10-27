@@ -74,7 +74,27 @@ void formMain::run()
     theMatrix.pix=reinterpret_cast<bool**>(malloc(static_cast<unsigned long long>(nbColumn)*sizeof(theMatrix.pix)));
     for(int column=0;column<nbColumn;column++)
         theMatrix.pix[column]=reinterpret_cast<bool*>(malloc(static_cast<unsigned long long>(nbLine)*sizeof(theMatrix.pix)));
-    classGeneriquesFonctions::bitMapToBinary(&theMatrix,*image, threshold);
+#ifdef DEBUGCLEAN
+    QImage  debugImage = image->copy();
+    QImage *ptrDebugImage=&debugImage;
+    debugImage=image->copy();
+    classGeneriquesFonctions::bitMapToBinary(&theMatrix,image, threshold,ptrDebugImage);
+#else
+    classGeneriquesFonctions::bitMapToBinary(&theMatrix,image, threshold);
+#endif
+
+#ifdef DEBUGCLEAN
+    structFormStamp f;
+    f.left = 200;
+    f.top = 100;
+    f.oneBmp = *ptrDebugImage;
+    f.title = ("clean ");
+    f.backColor = Qt::black;
+    f.border = 0;
+    formStamp *w = new formStamp(f);
+    w->retranslateUi();
+    w->show();
+#endif
     QList<float> angleRad;
     QList<corners> theAngle;
 #ifdef CALIBRATIONTHRESHOLD
@@ -228,10 +248,14 @@ QList<corners> formMain::getListStampWithDetection(struct oneMatrix *theMatrix,Q
                         }
                         if (!notInside)break;
                         //*****************************************
+#ifdef __DEBUG__
+						if (theAngles.count() == 35)  //debug
+							cpt = cpt;					  //debug
+						qDebug("%d=", theAngles.count());
+#endif
                         QList<QList<QPointF>> tempClockwise;
                         QList<QList<QPointF>> tempTrigo;
                         tempClockwise = sepStampFunctions::processAroundAndCornersStampClockwise(theMatrix,  QPointF(x, y), memoXH,image);
-
 #ifdef DEBUGDISPLAYCONTOURIMAGE
                         int nbLine=image.height();
                         int nbColumn=image.width();
@@ -246,11 +270,10 @@ QList<corners> formMain::getListStampWithDetection(struct oneMatrix *theMatrix,Q
                         foreach(QList<QPointF> list,tempClockwise)
                             foreach(QPointF pt,list)
                                  painter.drawPoint(pt);
-
                         structFormStamp frm;
                         frm.title=QString("imageDebugContourClockwise ");
                         frm.oneBmp=newImage;
-                        frm.index=9999;
+                        frm.index= theAngles.count();
                         frm.top=100;
                         frm.left=100;
                         formStamp *w = new formStamp(frm,&currentPathSave,&ratioPerforation);
@@ -275,7 +298,7 @@ QList<corners> formMain::getListStampWithDetection(struct oneMatrix *theMatrix,Q
 
                         frm.title=QString("imageDebugContourTrigo");
                         frm.oneBmp=newImageT;
-                        frm.index=9999;
+                        frm.index= theAngles.count();
                         frm.top=100;
                         frm.left=100;
                         formStamp *w1 = new formStamp(frm,&currentPathSave,&ratioPerforation);
@@ -287,31 +310,41 @@ QList<corners> formMain::getListStampWithDetection(struct oneMatrix *theMatrix,Q
                             IndicTrigoOK = tempTrigo[0].count() > NBPOINTMINIXX && tempTrigo[1].count() > NBPOINTMINIXX && tempTrigo[2].count() > NBPOINTMINIXX && tempTrigo[3].count() > NBPOINTMINIXX;
                         double aiClockwise[4] ;
                         double biClockwise[4];
-                        int indicAiOKClockwise = 0;
+        //                int indicAiOKClockwise = 0;
                         corners cornerClockwise;
                         if (IndicClockwiseOK)
-                            cornerClockwise = classGeometrie::processAngles(tempClockwise,  indicAiOKClockwise, aiClockwise, biClockwise);
+                            cornerClockwise = classGeometrie::processAngles(tempClockwise, IndicClockwiseOK, aiClockwise, biClockwise);
                         double aiTrigo[4] ;
                         double biTrigo[4];
-                        int indicAiOKHTrigo  = 0;
+        //                int indicAiOKHTrigo  = 0;
                         corners cornerTrigo ;
                         if (IndicTrigoOK)
-                            cornerTrigo = classGeometrie::processAngles(tempTrigo,  indicAiOKHTrigo, aiTrigo, biTrigo);
+                            cornerTrigo = classGeometrie::processAngles(tempTrigo, IndicTrigoOK, aiTrigo, biTrigo);
                         if (!IndicClockwiseOK && !IndicTrigoOK)
                         {
                             memoX=QPointF(x+1,y) ;
                             break;
                         }
                         else if (!IndicTrigoOK)
-                            sepStampFunctions::processClockwiseOrTrigo(cornerClockwise, theAngles, sidesPoints, memoX, tempClockwise,memoXH );
-					                        else if (!IndicClockwiseOK)
+                            theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerClockwise, theAngles, sidesPoints, memoX, tempClockwise,memoXH );
+                        else if (!IndicClockwiseOK)
                             theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerTrigo, theAngles, sidesPoints, memoX, tempTrigo,memoXT);
                         else
                         {
-                            if ((aiClockwise[0] - aiClockwise[2]) < (aiTrigo[0] - aiTrigo[2]))
-                                theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerClockwise, theAngles, sidesPoints, memoX, tempClockwise, memoXH );
+                            if (qAbs(aiClockwise[0] - aiTrigo[0]) < qAbs(aiClockwise[0] - aiTrigo[1]))
+                            {
+                                if (qAbs(aiClockwise[0] - aiClockwise[2]) < qAbs(aiTrigo[0] - aiTrigo[2]))
+                                    theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerClockwise, theAngles, sidesPoints, memoX, tempClockwise, memoXH );
+                                else
+                                    theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerTrigo, theAngles, sidesPoints, memoX, tempTrigo,memoXT);
+                            }
                             else
-                                theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerTrigo, theAngles, sidesPoints, memoX, tempTrigo,memoXT);
+                            {
+                                if (qAbs(aiClockwise[0] - aiClockwise[2]) < qAbs(aiTrigo[1] - aiTrigo[3]))
+                                    theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerClockwise, theAngles, sidesPoints, memoX, tempClockwise, memoXH );
+                                else
+                                    theAngles= sepStampFunctions::processClockwiseOrTrigo(cornerTrigo, theAngles, sidesPoints, memoX, tempTrigo,memoXT);
+                            }
                         }
                         break;
                     }   //while (notInside)

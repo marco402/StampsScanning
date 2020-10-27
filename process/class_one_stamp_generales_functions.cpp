@@ -41,7 +41,7 @@
     theMatrix.pix=reinterpret_cast<bool**>(malloc(static_cast<unsigned long long>(nbColumn)*sizeof(theMatrix.pix)));
     for(int column=0;column<nbColumn;column++)
         theMatrix.pix[column]=reinterpret_cast<bool*>(malloc(static_cast<unsigned long long>(nbLine)*sizeof(theMatrix.pix)));
-    classGeneriquesFonctions::bitMapToBinary(&theMatrix,f.oneBmp, threshold);
+    classGeneriquesFonctions::bitMapToBinary(&theMatrix,&f.oneBmp, threshold);
     //process teeth
 #ifdef DEBUGDISPLAYIMAGE
     f.nbTeeth[static_cast<int>(sideStamp::NORTH)] = class_perforation::processPerforation(sideStamp::NORTH, &theMatrix, f.oneBmp,listPtDebug,propertyListForm.border, ratioPerforation);

@@ -40,8 +40,7 @@
 
 
 formMain::formMain() {
-
-    loadSettings();
+     bool ret=loadSettings();
      threadProcess = new MyThread();
      connect(threadProcess, SIGNAL(sendProgress(int, int)), this, SLOT(receiveProgress(int, int)));
 #ifdef DEBUGDISPLAYIMAGE
@@ -50,7 +49,7 @@ formMain::formMain() {
      connect(threadProcess, SIGNAL(sendFinished()), this, SLOT(receiveFinished()));  //
      connect(this, SIGNAL(sendTerminate()), threadProcess, SLOT(receiveTerminate()));
     labelPicture=new QLabel(this);
-    setWindowTitle("stampsScanning V1.0");
+    setWindowTitle("stampsScanning " + VERSION );
     move(10,10);
 
     loadWidgets();
@@ -59,30 +58,37 @@ formMain::formMain() {
     myPixmap=new QPixmap;
     setCentralWidget(labelPicture);
     labelPicture->setScaledContents(true);
-    //int widthScreen = static_cast<int>((QApplication::desktop()->width())*PROPORTIONWINDOWSMAX);
-    //int heighScreen = static_cast<int>((QApplication::desktop()->height())*PROPORTIONWINDOWSMAX);
-
-    //setMinimumSize(WIDTHWINDOWMAINMIN,HEIGHTWINDOWMIN);
-    //setMaximumSize(widthScreen,heighScreen);
     cbBorderSize->setCurrentText(QString::number(border));
     runAct->setEnabled(false);
     rotateAct->setEnabled(false);
 	
 #ifdef LOADWHENSTART
 //**************if load to open window**********************
-    QString fileName = QApplication::applicationDirPath() + "../../stamps_test/1timbre.bmp";   //le petit prince pb.bmpT11.bmpcarre_penche_droite.bmp35timbres.bmp 3timbres.jpg45degres200ppm.bmp  "C:/marc/developpement/T11.bmp" "C:/marc/developpement/dossiers/Nouveau dossier (2)/capture1.jpg"  ;   //"C:/marc/developpement/StampsScanning/StampsScanning/35timbres.jpg";
+    QString fileName = QApplication::applicationDirPath() + "/../../stamps_test/1timbre.bmp";
 
     if(loadFile(fileName))
     {
 		valideLoadFile(fileName);
     }
-    else {
+    else
         setGeometry(0,0,500,300);
-    }
 
 //****************************************************************
 #else
-    setGeometry(0,0,600,300);
+    if(!ret)
+    {
+        currentPathLoad=QApplication::applicationDirPath() + "/stamps_test/";
+        currentPathSave=currentPathLoad;
+        QString fileName = currentPathLoad + "example.bmp";
+        if(loadFile(fileName))
+        {
+            valideLoadFile(fileName);
+        }
+        else
+          setGeometry(0,0,600,300);
+    }
+    else
+        setGeometry(0,0,600,300);
 #endif
 }
 formMain::~formMain()
@@ -203,7 +209,7 @@ void formMain::loadWidgets()
 void formMain::about()
 {
 	QMessageBox::about(this, tr("About StampsScanning"),
-        tr("V1.0 proposed by Marc Prieur\n 09/2020.")+"\n email:marco40_github@sfr.fr");
+       VERSION +  tr(" proposed by Marc Prieur\n 09/2020.")+"\n email:marco40_github@sfr.fr");
 }
 
 void formMain::createHelpWindow()
@@ -228,7 +234,7 @@ void formMain::valueSliderCalibrationChanged(int position)
 		rotateAct->setEnabled(false);
 		memoPosition = position;
 		threshold = position;
-		qDebug("%d", position);
+		//qDebug("%d", position);
 		traiteSliderCalibration();
 		runAct->setEnabled(true);
 		rotateAct->setEnabled(true);
