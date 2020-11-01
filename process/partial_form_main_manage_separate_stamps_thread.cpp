@@ -135,7 +135,7 @@ void formMain::run()
 		w->retranslateUi();
 		w->show();
 	}
-    progressBarProcess->setFormat("%v/%m" + tr("stamps"));
+    progressBarProcess->setFormat("%v/%m " + tr("stamps"));
     progressBarProcess->setMaximum(theAngle.count());
     progressBarProcess->setValue(0);
     threadProcess->setAngles(theAngle);
@@ -148,7 +148,7 @@ void formMain::run()
 }
 void formMain::displayStamp(QList<structFormStamp> propertyListForm)
 {
-    progressBarProcess->setFormat("%v/%m" + tr("stamps ok"));
+    progressBarProcess->setFormat("%v/%m " + tr("stamps ok"));
     progressBarProcess->setMaximum(propertyListForm.count());
     int widthScreen = (QApplication::desktop()->width());
     int heighScreen = (QApplication::desktop()->height());

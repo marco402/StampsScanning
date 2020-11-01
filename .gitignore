@@ -1,18 +1,38 @@
 #projet messagesPiloteVmcVersSql C++ QT QT créator
-build-StampsScanning-Desktop_Qt_5_13_0_MSVC2017_64bit-Debug/*
-build-StampsScanning-Desktop_Qt_5_13_0_MSVC2017_64bit-Profile/*
-build-StampsScanning-Desktop_Qt_5_13_0_MSVC2017_64bit-Release/*
-delivery/*
-debug/*
-release/*
-.vs/*
-!.gitignore
+
+#on suprime tout
+/**
+#on ajoute ce qu'on garde
+
+#fichiers
+!/.gitignore
 !/README.md
-!/LICENCE
+!/LICENSE
+!/todo
+!/delivery for windows.zip
+!/*.pro
+!/*.h
+!/*.cpp
+!/*.qrc
+!/*.vcxproj
+
+#dossiers
+!/help
+!/help/*
+!/icons
+!/icons/*
+!/languages
+!/languages/*
+!/presentation
+!/presentation/*
+!/process
+!/process/*
+!/stamps_test
+!/stamps_test/*
+
 presentation/*.autosave
 process/*.autosave
-*.ini
-*.log
+
 
 
 

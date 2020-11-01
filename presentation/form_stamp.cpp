@@ -34,7 +34,7 @@
 formStamp::formStamp(structFormStamp frm)
 {
     memmove ( nbPerforation, frm.nbTeeth, 4*sizeof(double) ) ;
-    setWindowTitle(frm.title + QString::number(frm.index));
+    setWindowTitle(frm.title );   //+ QString::number(frm.index)
     move(frm.left,frm.top);
     loadWidgets(frm);
     initResize();
@@ -45,7 +45,7 @@ formStamp::formStamp(structFormStamp frm,QString * currentPathSave,double * rati
     this->currentPathSave=currentPathSave;
     this->ratioPerforation=ratioPerforation;
     memmove ( nbPerforation, frm.nbTeeth, 4*sizeof(double) ) ;
-    setWindowTitle(frm.title + QString::number(frm.index));
+    setWindowTitle(frm.title );   //+ QString::number(frm.index)
     move(frm.left,frm.top);
     loadWidgets(frm);
     initResize();
@@ -77,17 +77,16 @@ void formStamp::loadWidgets(structFormStamp frm)
 {
 
     editRefStamp = new QLineEdit;
-    editRefStamp->setText(frm.yearStamp);
-    editRefStamp->setToolTip(tr("Ref of stamp.") );
+    editRefStamp->setToolTip(tr("Ref of stamp."));
 	editNamePictureFile =new QLineEdit;
     editNamePictureFile->setToolTip(tr("Name if you want it.."));
     editYearStamp = new QLineEdit;
     editYearStamp->setText(frm.yearStamp);
-    editYearStamp->setToolTip(tr("Year if you want it.") );
+    editYearStamp->setToolTip(tr("Year if you want it."));
     cbNbPerforations = new QComboBox;
     cbNbPerforations->setEditable(false);
     average=(frm.nbTeeth[static_cast<int>(sideStamp::NORTH)]+frm.nbTeeth[static_cast<int>(sideStamp::SOUTH)]+frm.nbTeeth[static_cast<int>(sideStamp::EAST)]+frm.nbTeeth[static_cast<int>(sideStamp::WEST)])/4;
-    cbNbPerforations->addItem(QString::number(average));
+    cbNbPerforations->addItem(QString::number(average,'f',1));
 
     cbNbPerforations->addItem(tr("North:  ")+QString::number(frm.nbTeeth[static_cast<int>(sideStamp::NORTH)],'f',1));
     cbNbPerforations->addItem(tr("South:   ")+QString::number(frm.nbTeeth[static_cast<int>(sideStamp::SOUTH)],'f',1));
@@ -140,7 +139,7 @@ void formStamp::rotate()
     nbPerforation[static_cast<int>(sideStamp::SOUTH)]=nbPerforation[static_cast<int>(sideStamp::EAST)];
     nbPerforation[static_cast<int>(sideStamp::EAST)]=temp;
     cbNbPerforations->clear();
-    cbNbPerforations->addItem(QString::number(average));
+    cbNbPerforations->addItem(QString::number(average,'f',1));
     cbNbPerforations->addItem(tr("North:  ") + QString::number(nbPerforation[static_cast<int>(sideStamp::NORTH)],'f',1));
     cbNbPerforations->addItem(tr("South:   ") +  QString::number(nbPerforation[static_cast<int>(sideStamp::SOUTH)],'f',1));
     cbNbPerforations->addItem(tr("East:   ") +  QString::number(nbPerforation[static_cast<int>(sideStamp::EAST)],'f',1));

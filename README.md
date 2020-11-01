@@ -7,11 +7,11 @@
 
 ** En Français plus loin... 
 
-# --------------------------------Version 1.0.1-------------------------------------
+# ------------------Version 1.0.1----------------------------
 - Load file example at the first load.
 - Add cleanMatrix with debug window if DEBUGCLEAN.
 - Form stamp add average perforation.
-# --------------------------------Version 1.0-------------------------------------
+# -----------------Version 1.0-------------------------------
 
 # General principle:
 - This software separates stamps scanned together.
@@ -109,10 +109,10 @@ When the bar is moved, the new value is displayed in the status bar, when the mo
 Obliteration around the edges of the patch can disturb the contour. 
 ___________________________________________________________________________________________
 
-# --------------------------------Version 1.0.1-------------------------------------
+# --------------------Version 1.0.1--------------------
 - Chargement d'un fichier exemple au premier lancement.
 - Affichage de la moyenne des 4 dentitions.
-# --------------------------------Version 1.0-------------------------------------
+# --------------------Version 1.0-----------------------
 
 # Description:
 
